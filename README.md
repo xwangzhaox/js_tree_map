@@ -4,6 +4,7 @@ A tree map app.
 
 You can use it like this:
 
+<pre>
 <script type="text/javascript">
 	$(function(){
 		add_box_dom(new Page(1001, 1002, "zzz", "http://www.baidu.com"));
@@ -12,3 +13,4 @@ You can use it like this:
 		add_box_dom(new Page(1001, 1005, "zzz", "http://www.baidu.com"));
 	});
 </script>
+</pre>
