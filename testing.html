@@ -6,12 +6,13 @@
 <script type="text/javascript" src="tree_map.js"></script>
 </head>
 <body>
-    <svg id="pic" width=100% height=100% viewBox="0 0 2050 1000" preserveAspectRatio="xMidYMid slice" style="border: 1px solid red;">
+    <svg id="pic" width=100% height=100% viewBox="0 0 2050 400" preserveAspectRatio="xMidYMid slice" style="border: 1px solid red;">
     	<g id="page" data-object-id="1001" data-parent-id="0" data-url="http://www.baidu.com">
     		<rect x="975" y="15" width="100" height="50" stroke="black" fill="#ccc"  data-rect-object-id="1001" data-rect-parent-id="0" data-rect-url="http://www.baidu.com"></rect>
     		<text x="1005" y="45" data-text-object-id="1001" data-text-parent-id="0" style="font-family:sans-serif; font-size:14pt;">xxxxx</text>
     	</g>
     </svg>
+    
 <script type="text/javascript">
 	$(function(){
 		add_box_dom(new Page(1001, 1002, "zzz", "http://www.baidu.com"));
@@ -23,7 +24,27 @@
 		add_box_dom(new Page(1001, 1008, "zzz", "http://www.baidu.com"));
 		add_box_dom(new Page(1001, 1009, "zzz", "http://www.baidu.com"));
 	});
+  var bigger = function(){
+    var size = getViewBoxSize();
+    var new_size = new Array(size[0]+(size[2]*0.1)/2, size[1]+(size[3]*0.1)/2, size[2]-size[2]*0.1, size[3]-size[3]*0.1);
+    svg().setAttribute("viewBox", new_size.join(" "));
+  }
+  var smaller = function(){
+    var size = getViewBoxSize();
+    var new_size = new Array(size[0]-(size[2]*0.1)/2, size[1]-(size[3]*0.1)/2, size[2]+size[2]*0.1, size[3]+size[3]*0.1);
+    svg().setAttribute("viewBox", new_size.join(" "));
+  }
+  var getViewBoxSize = function(){
+    var current_size = svg().getAttribute("viewBox");
+    var size = new Array( Number(current_size.split(" ")[0]), Number(current_size.split(" ")[1]), Number(current_size.split(" ")[2]), Number(current_size.split(" ")[3]))
+    return size
+  }
+  var svg = function(){
+    return document.getElementsByTagName("svg")[0];
+  }
 </script>
+  <button id="bigger" onclick="bigger()">扩大</button>
+  <button id="smaller" onclick="smaller()">缩小</button>
 </body>
 </html>
 
