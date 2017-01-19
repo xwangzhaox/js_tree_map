@@ -127,3 +127,26 @@ function Page(parent_id, object_id, title, url) {
 	this.title = title;
 	this.url = url;
 }
+
+function bigger(){
+  var size = getViewBoxSize();
+  var new_size = new Array(size[0]+(size[2]*0.1)/2, size[1]+(size[3]*0.1)/2, size[2]-size[2]*0.1, size[3]-size[3]*0.1);
+  svg().setAttribute("viewBox", new_size.join(" "));
+}
+
+function smaller(){
+  var size = getViewBoxSize();
+  var new_size = new Array(size[0]-(size[2]*0.1)/2, size[1]-(size[3]*0.1)/2, size[2]+size[2]*0.1, size[3]+size[3]*0.1);
+  svg().setAttribute("viewBox", new_size.join(" "));
+}
+
+function getViewBoxSize(){
+  var current_size = svg().getAttribute("viewBox");
+  var size = new Array( Number(current_size.split(" ")[0]), Number(current_size.split(" ")[1]), Number(current_size.split(" ")[2]), Number(current_size.split(" ")[3]))
+  return size
+}
+
+function svg(){
+  return document.getElementsByTagName("svg")[0];
+}
+

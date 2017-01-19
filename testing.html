@@ -23,25 +23,38 @@
 		add_box_dom(new Page(1001, 1007, "zzz", "http://www.baidu.com"));
 		add_box_dom(new Page(1001, 1008, "zzz", "http://www.baidu.com"));
 		add_box_dom(new Page(1001, 1009, "zzz", "http://www.baidu.com"));
+
+    document.body.onmousewheel = function(event) {
+        event = event || window.event;
+        if(event.deltaY == 1){
+          bigger()
+        }else{
+          smaller()
+        }
+    };
+    
+    svg().onmousedown = function(e) {
+      var evnt = e || event;
+      var size = getViewBoxSize();
+      disX = evnt.clientX + size[0];
+      disY = evnt.clientY + size[1];
+
+      document.onmousemove = function(e) {
+        var evnt = e || event;
+        var x = evnt.clientX - disX;
+        var y = evnt.clientY - disY;
+
+        var newSize = new Array(-x, -y, size[2], size[3]) 
+        svg().setAttribute("viewBox", newSize.join(" "));
+      }
+
+      document.onmouseup = function() {
+        document.onmousemove =null;
+        document.onmouup = null;
+      };
+    }
 	});
-  var bigger = function(){
-    var size = getViewBoxSize();
-    var new_size = new Array(size[0]+(size[2]*0.1)/2, size[1]+(size[3]*0.1)/2, size[2]-size[2]*0.1, size[3]-size[3]*0.1);
-    svg().setAttribute("viewBox", new_size.join(" "));
-  }
-  var smaller = function(){
-    var size = getViewBoxSize();
-    var new_size = new Array(size[0]-(size[2]*0.1)/2, size[1]-(size[3]*0.1)/2, size[2]+size[2]*0.1, size[3]+size[3]*0.1);
-    svg().setAttribute("viewBox", new_size.join(" "));
-  }
-  var getViewBoxSize = function(){
-    var current_size = svg().getAttribute("viewBox");
-    var size = new Array( Number(current_size.split(" ")[0]), Number(current_size.split(" ")[1]), Number(current_size.split(" ")[2]), Number(current_size.split(" ")[3]))
-    return size
-  }
-  var svg = function(){
-    return document.getElementsByTagName("svg")[0];
-  }
+
 </script>
   <button id="bigger" onclick="bigger()">扩大</button>
   <button id="smaller" onclick="smaller()">缩小</button>
