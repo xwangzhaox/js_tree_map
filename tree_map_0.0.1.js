@@ -59,7 +59,8 @@
     var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
     use.setAttributeNS(null, "x", x);
     use.setAttributeNS(null, "y", y);
-    use.setAttributeNS(null, "onclick", "opacityDistinguish(this)")
+    use.setAttributeNS(null, "onclick", "opacityDistinguish(this)");
+    use.setAttributeNS(null, "style", "cursor:hand;");
     use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#node');
       // init text
     var textObj = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -67,7 +68,7 @@
     var text = $(textObj).attr({
       x: x+25,
       y: y+30,
-      style: "font-family:sans-serif; font-size:14pt;",
+      style: "font-family:sans-serif; font-size:14pt;cursor:hand;"
     });
     if ( g == null ) {
       addGroup(svg(), "", true)
@@ -150,13 +151,10 @@
   }
 
   function opacityDistinguish(dom){
-    //$("use").css({'opacity': 0.2, 'z-index': 5, 'position': 'absolute'});
-    //$(dom).parents().children("use, line").css({'opacity': 0.6, 'z-index': 9, 'position': 'absolute'});
-    //$(dom).css({'opacity': 1, 'z-index': 99, 'position': 'absolute'});
-    $("use").css({'opacity': 0.2, 'z-index': 5, 'position': 'absolute'});
+    $("use").css({'opacity': 0.2});
     $("use, line").css({'stroke': '#333', 'stroke-width': 1});
-    $(dom).parents().children("use, line").css({'opacity': 0.8, 'z-index': 9, 'position': 'absolute', 'stroke': 'red', 'stroke-width': 2});
-    $(dom).css({'opacity': 1, 'z-index': 99, 'position': 'absolute'});
+    $(dom).parents().children("use, line").css({'opacity': 0.8, 'stroke': 'red', 'stroke-width': 2});
+    $(dom).css({'opacity': 1});
   }
 
   function bigger(){
